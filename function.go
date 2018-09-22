@@ -5,7 +5,7 @@ import (
 )
 
 type Function struct {
-	value Value
+	value interface{}
 }
 
 func (f Function) Stub(returnValue interface{}) Function {
@@ -13,6 +13,6 @@ func (f Function) Stub(returnValue interface{}) Function {
 	fun := func(args []Value) []Value {
 		return []Value{ret}
 	}
-	newFunc := MakeFunc(f.value.Type(), fun)
-	return Function{newFunc}
+	newFunc := MakeFunc(ValueOf(f.value).Type(), fun)
+	return Function{newFunc.Interface()}
 }

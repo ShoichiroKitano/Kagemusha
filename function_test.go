@@ -10,10 +10,9 @@ func noArgs() int {
 }
 
 func TestNoArgsFunctionCreation(t *testing.T) {
-	newFunction := Function{ValueOf(noArgs)}.Stub(2)
-	actual := newFunction.value.Call([]Value{})
-	expect := []Value{ValueOf(2)}
-	if DeepEqual(actual, expect) {
+	newFunction := Function{noArgs}.Stub(2)
+	actual, _ := ValueOf(newFunction.value).Call([]Value{})[0].Interface().(int)
+	if actual != 2 {
 		t.Fatal("fail create new function")
 	}
 }
