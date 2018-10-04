@@ -9,7 +9,6 @@ func return1() int {
 }
 
 func TestReplaceFunction(t *testing.T) {
-	t.Skip()
 	Mock(return1).Return(2)
 	if return1() != 2 {
 		t.Fatal("function was not replaced")
