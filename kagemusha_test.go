@@ -12,12 +12,14 @@ func return2() int {
 	return 2
 }
 
-//func TestReplaceFunction(t *testing.T) {
-//	Mock(return1).Return(2)
-//	if return1() != 2 {
-//		t.Fatal("function was not replaced")
-//	}
-//}
+func TestReplaceFunction(t *testing.T) {
+	mock := Mock(return1)
+	mock.Return(2)
+	defer mock.Unmock()
+	if return1() != 2 {
+		t.Fatal("function was not replaced")
+	}
+}
 
 func TestUnmockFunction(t *testing.T) {
 	mock := Mock(return2)
