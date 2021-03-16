@@ -30,3 +30,24 @@ func TestUnmockFunction(t *testing.T) {
 	}
 }
 
+type A struct {}
+
+func (a *A) Method() int {
+	return 1
+}
+
+func TestMockObject(t *testing.T) {
+	a1 := new(A)
+	a2 := new(A)
+	Allow(a1, (*A).Method, 2)
+	Allow(a2, (*A).Method, 3)
+	a1.Method()
+	a2.Method()
+	if a1.Method() != 2 {
+		t.Fatal("a1 method was not mocked")
+	}
+	if a2.Method() != 3 {
+		t.Fatal("a2 method was not mocked")
+	}
+}
+
